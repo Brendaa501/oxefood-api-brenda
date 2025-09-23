@@ -1,5 +1,8 @@
-package br.com.ifpe.oxefood.api.cliente;
+package br.com.ifpe.oxefood.api.produto;
+
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,37 +14,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ifpe.oxefood.modelo.cliente.Cliente;
-import br.com.ifpe.oxefood.modelo.cliente.ClienteService;
+import br.com.ifpe.oxefood.api.produto.ProdutoRequest;
+import br.com.ifpe.oxefood.modelo.produto.Produto;
+import br.com.ifpe.oxefood.modelo.produto.ProdutoService;
 
 // end point de cliente (rotas)
 // http://localhost:8080/api/cliente/
 
 @RestController
-@RequestMapping("/api/cliente") // url para acessar funções
+@RequestMapping("/api/produto") // url para acessar funções
 @CrossOrigin
-public class ClienteController {
-
-     
-
-   @Autowired
-   private ClienteService clienteService;
+public class ProdutoController {
+    
+    @Autowired
+   private ProdutoService produtoService;
 
   //@PostMapping(path="/cadastrar") para acessar outro post
    @PostMapping
-   public ResponseEntity<Cliente> save(@RequestBody ClienteRequest request) {
+   public ResponseEntity<Produto> save(@RequestBody ProdutoRequest request) {
 
-       Cliente cliente = clienteService.save(request.build());
-       return new ResponseEntity<Cliente>(cliente, HttpStatus.CREATED);
+       Produto produto = produtoService.save(request.build());
+       return new ResponseEntity<Produto>(produto, HttpStatus.CREATED);
    }
-   @GetMapping
-    public List<Cliente> listarTodos() {
-        return clienteService.listarTodos();
+     @GetMapping
+    public List<Produto> listarTodos() {
+        return produtoService.listarTodos();
     }
 
     @GetMapping("/{id}")
-    public Cliente obterPorID(@PathVariable Long id) {
-        return clienteService.obterPorID(id);
+    public Produto obterPorID(@PathVariable Long id) {
+        return produtoService.obterPorID(id);
     }
 
 }
+

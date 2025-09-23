@@ -10,11 +10,29 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data //ou get e set
-@Builder //instancia os objetos de uma form mais simples
+ 
+
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import br.com.ifpe.oxefood.modelo.cliente.Cliente;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@Data//ou get e setpackage br.com.ifpe.oxefood.api.cliente;
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClienteRequest {//classe request serve como trasnporte de dados em formato de json para o postman, por exemplo
+public class ClienteRequest {
+
+    //Cliente c2 = Cliente.builder()
+    //.nome(nome:"giu")
+    //.cpf(cpf:"123")
+   // .builder();
 
    private String nome;
 
@@ -39,3 +57,5 @@ public class ClienteRequest {//classe request serve como trasnporte de dados em 
    }
 
 }
+
+
