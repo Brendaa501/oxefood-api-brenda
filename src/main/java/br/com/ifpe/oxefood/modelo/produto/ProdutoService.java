@@ -5,8 +5,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
 @Service
 public class ProdutoService {
+    @Transactional
+   public void update(Long id, Produto produtoAlterado) {
+
+      Produto produto = repository.findById(id).get();
+      produto.setTitulo(produtoAlterado.getTitulo());
+      produto.setCodigoProduto(produtoAlterado.getCodigoProduto());
+      produto.setDescricao(produtoAlterado.getDescricao());
+      produto.setValorUnitario(produtoAlterado.getValorUnitario());
+      produto.setTempoEntregaMin(produtoAlterado.getTempoEntregaMin());
+       produto.setTempoEntregaMax(produtoAlterado.getTempoEntregaMax());
+	    
+      repository.save(produto);
+  }
+
     @Autowired
     private ProdutoRepository repository;
 
