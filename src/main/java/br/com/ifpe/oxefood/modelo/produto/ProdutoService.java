@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.ifpe.oxefood.modelo.cliente.Cliente;
+
 
 
 @Service
@@ -13,6 +15,7 @@ public class ProdutoService {
    public void update(Long id, Produto produtoAlterado) {
 
       Produto produto = repository.findById(id).get();
+     produto.setCategoria(produtoAlterado.getCategoria());
       produto.setTitulo(produtoAlterado.getTitulo());
       produto.setCodigoProduto(produtoAlterado.getCodigoProduto());
       produto.setDescricao(produtoAlterado.getDescricao());
@@ -31,6 +34,17 @@ public class ProdutoService {
         produto.setHabilitado(Boolean.TRUE);
         return repository.save(produto);
     }
+
+    
+   @Transactional
+   public void delete(Long id) {
+
+       Produto produto = repository.findById(id).get();
+       produto.setHabilitado(Boolean.FALSE);
+
+       repository.save(produto);
+   }
+
     public List<Produto> listarTodos() {
   
         return repository.findAll();

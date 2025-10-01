@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+
 import br.com.ifpe.oxefood.modelo.entregador.Entregador;
 
 
@@ -46,6 +47,16 @@ public class EntregadorService {
        entregador.setHabilitado(Boolean.TRUE);
        return repository.save(entregador);
    }
+
+    @Transactional
+   public void delete(Long id) {
+
+       Entregador entregador = repository.findById(id).get();
+       entregador.setHabilitado(Boolean.FALSE);
+
+       repository.save(entregador);
+   }
+
   public List<Entregador> listarTodos() {
   
         return repository.findAll();
