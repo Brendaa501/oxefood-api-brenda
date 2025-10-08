@@ -1,8 +1,8 @@
+//serve pro spring utilizar p converter o json. Transporte de dados
+//não possui anotações JPA
+
 package br.com.ifpe.oxefood.api.produto;
 
-import java.time.LocalDate;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.ifpe.oxefood.modelo.produto.Produto;
 import lombok.AllArgsConstructor;
@@ -10,38 +10,41 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@Builder
+
+@Data //gerar get e set dos atributos das classes
+@Builder //so funciona se no cliente.java tiver o builder tbm
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class ProdutoRequest {
 
-    private Long idCategoria;
+   private Long idCategoria;
 
-    private String titulo;
+   private String codigo;
 
-    private String codigoProduto;
+   private String titulo;
 
-    private String descricao;
+   private String descricao;
 
-    private String valorUnitario;
+   private Double valorUnitario;
 
-    private String tempoEntregaMin;
+   private Integer tempoEntregaMinimo;
 
-    private String tempoEntregaMax;
+   private Integer tempoEntregaMaximo;
 
-    public Produto build(){
 
-        return Produto.builder()
-        .titulo(titulo)
-        .codigoProduto(codigoProduto)
-        .descricao(descricao)
-        .valorUnitario(valorUnitario)
-        .tempoEntregaMin(tempoEntregaMin)
-        .tempoEntregaMax(tempoEntregaMax)
-        .build();
+   //instanciar:
+   public Produto build() { 
 
-    }
+       return Produto.builder()
+           .codigo(codigo)
+           .titulo(titulo)
+           .descricao(descricao)
+           .valorUnitario(valorUnitario)
+           .tempoEntregaMinimo(tempoEntregaMinimo)
+           .tempoEntregaMaximo(tempoEntregaMaximo)
+           .build();
+   }
+
     
 }
-

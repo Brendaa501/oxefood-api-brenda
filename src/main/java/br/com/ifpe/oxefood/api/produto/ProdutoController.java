@@ -1,5 +1,5 @@
+//define os endpoints de cliente
 package br.com.ifpe.oxefood.api.produto;
-
 
 import java.util.List;
 
@@ -16,39 +16,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ifpe.oxefood.api.cliente.ClienteRequest;
-import br.com.ifpe.oxefood.api.produto.ProdutoRequest;
-import br.com.ifpe.oxefood.modelo.cliente.Cliente;
-import br.com.ifpe.oxefood.modelo.produto.CategoriaProdutoService;
+import br.com.ifpe.oxefood.modelo.categoriaProduto.CategoriaProdutoService;
 import br.com.ifpe.oxefood.modelo.produto.Produto;
 import br.com.ifpe.oxefood.modelo.produto.ProdutoService;
 
-// end point de cliente (rotas)
-// http://localhost:8080/api/cliente/
 
-@RestController
-@RequestMapping("/api/produto") // url para acessar funções
+@RestController //api rest
+@RequestMapping("/api/produto") //url p acessar funções da classe desse controller
+//http://localhost:5435/api/produto =postman
 @CrossOrigin
+
 public class ProdutoController {
-    
-    @Autowired
+
+   @Autowired //
    private ProdutoService produtoService;
 
    @Autowired
    private CategoriaProdutoService categoriaProdutoService;
 
 
-  //@PostMapping(path="/cadastrar") para acessar outro post
    @PostMapping
    public ResponseEntity<Produto> save(@RequestBody ProdutoRequest request) {
-
+//RequestBody = o json vai vir no body da requisição
        Produto produtoNovo = request.build();
        produtoNovo.setCategoria(categoriaProdutoService.obterPorID(request.getIdCategoria()));
        Produto produto = produtoService.save(produtoNovo);
 
        return new ResponseEntity<Produto>(produto, HttpStatus.CREATED);
+
    }
-     @GetMapping
+//listagem:
+    @GetMapping 
     public List<Produto> listarTodos() {
         return produtoService.listarTodos();
     }
@@ -57,9 +55,11 @@ public class ProdutoController {
     public Produto obterPorID(@PathVariable Long id) {
         return produtoService.obterPorID(id);
     }
-    @PutMapping("/{id}")
- public ResponseEntity<Produto> update(@PathVariable("id") Long id, @RequestBody ProdutoRequest request) {
 
+//update:
+//(rota de alterar) passa tbm um json com os dados do cliente alterado
+@PutMapping("/{id}")
+ public ResponseEntity<Produto> update(@PathVariable("id") Long id, @RequestBody ProdutoRequest request) {
        Produto produto = request.build();
        produto.setCategoria(categoriaProdutoService.obterPorID(request.getIdCategoria()));
        produtoService.update(id, produto);
@@ -67,6 +67,10 @@ public class ProdutoController {
        return ResponseEntity.ok().build();
  }
 
+//delete:
+//pra ser invocado precisa fazer uma requisição tipo delete, passando o id na url
+ //não vai retornar nenhum objeto(void)
+ //pathvariable: tem q ser o mesmo do q está entre chaves
 @DeleteMapping("/{id}")
    public ResponseEntity<Void> delete(@PathVariable Long id) {
 
@@ -74,5 +78,5 @@ public class ProdutoController {
        return ResponseEntity.ok().build();
    }
 
+    
 }
-

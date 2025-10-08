@@ -1,7 +1,8 @@
-package br.com.ifpe.oxefood.modelo.produto;
-
+package br.com.ifpe.oxefood.modelo.categoriaProduto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CategoriaProdutoRepositoy extends JpaRepository<Produto, Long>{
+public interface CategoriaProdutoRepository extends JpaRepository<CategoriaProduto, Long>{
     
 }
+
+    

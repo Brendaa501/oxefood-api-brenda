@@ -1,49 +1,55 @@
+//especificar atributos e tabela produto, classe estrutura
 package br.com.ifpe.oxefood.modelo.produto;
 
-import java.time.LocalDate;
-
 import org.hibernate.annotations.SQLRestriction;
-import jakarta.persistence.Table;
+
+import br.com.ifpe.oxefood.modelo.categoriaProduto.CategoriaProduto;
 import br.com.ifpe.oxefood.util.entity.EntidadeAuditavel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "Produto") // sera criado uma tabela msm nome da classe
-@SQLRestriction("habilitado = true") // serve para filtrar o registro da entidade
-@Builder
+//anotações do JPA:
+
+@Entity //classifica a classe como entidade
+@Table(name = "Produto") //determinar q sera criado uma tabela com esse nome
+@SQLRestriction("habilitado = true") //serve pra acresentar uma clausula de filtro, e pode fazer uma exclusão lógica
+
+//anotações do lombok
+@Builder //intanciar objetos
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produto extends EntidadeAuditavel {
 
-     @ManyToOne
+public class Produto extends EntidadeAuditavel  {
+  
+   @ManyToOne
    private CategoriaProduto categoria;
 
+   @Column
+   private String codigo;
 
-    @Column
-    private String titulo;
+   @Column
+   private String titulo;
 
-    @Column
-    private String codigoProduto;
+   @Column
+   private String descricao;
 
-    @Column
-    private String descricao;
+   @Column
+   private Double valorUnitario;
 
-    @Column
-    private String valorUnitario;
+   @Column
+   private Integer tempoEntregaMinimo;
 
-    @Column
-    private String tempoEntregaMin;
+   @Column
+   private Integer tempoEntregaMaximo;
 
-    @Column
-    private String tempoEntregaMax;
-    
+
 }
