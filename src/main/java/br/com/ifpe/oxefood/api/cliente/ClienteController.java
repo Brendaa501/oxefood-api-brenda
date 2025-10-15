@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ifpe.oxefood.modelo.cliente.Cliente;
 import br.com.ifpe.oxefood.modelo.cliente.ClienteService;
+import jakarta.validation.Valid;
 
 // end point de cliente (rotas)
 // http://localhost:8080/api/cliente/
@@ -30,12 +31,15 @@ public class ClienteController {
    private ClienteService clienteService;
 
   //@PostMapping(path="/cadastrar") para acessar outro post
-   @PostMapping
-   public ResponseEntity<Cliente> save(@RequestBody ClienteRequest request) {
+@PostMapping
+public ResponseEntity<Cliente> save(@RequestBody @Valid ClienteRequest request) {
 
-       Cliente cliente = clienteService.save(request.build());
+
+        Cliente cliente = clienteService.save(request.build());
        return new ResponseEntity<Cliente>(cliente, HttpStatus.CREATED);
-   }
+
+
+}
    @GetMapping
     public List<Cliente> listarTodos() {
         return clienteService.listarTodos();
